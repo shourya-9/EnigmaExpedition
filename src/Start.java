@@ -46,35 +46,7 @@ class Start extends JFrame {
 
 
 
-        OutlineLabel names1 = new OutlineLabel("By: Shourya Nundy, Dipraman Ghosh");
-        names1.setFont(customFont2);
-        names1.setForeground(Color.ORANGE);
-        names1.setBounds(10, 490, 350, 30); // Adjust bounds as needed
-        panel.add(names1);
-
-        OutlineLabel names2 = new OutlineLabel(" Darsh Shah, Armaan Sharma, Ethan Carvalho");
-        names2.setFont(customFont2);
-        names2.setForeground(Color.ORANGE);
-        names2.setBounds(10, 510, 400, 30); // Adjust bounds as needed
-        panel.add(names2);
-
-//        OutlineLabel names3 = new OutlineLabel(" Ethan Carvalho");
-//        names3.setFont(customFont2);
-//        names3.setForeground(Color.ORANGE);
-//        names3.setBounds(10, 530, 350, 30); // Adjust bounds as needed
-//        panel.add(names3);
-
-        OutlineLabel br1 = new OutlineLabel("CS 2212, Western University");
-        br1.setFont(customFont2);
-        br1.setForeground(Color.ORANGE);
-        br1.setBounds(10, 530, 350, 30); // Adjust bounds as needed
-        panel.add(br1);
-
-        OutlineLabel br2 = new OutlineLabel("Team 36, Fall 2024");
-        br2.setFont(customFont2);
-        br2.setForeground(Color.ORANGE);
-        br2.setBounds(10, 550, 350, 30); // Adjust bounds as needed
-        panel.add(br2);
+    
 
         // Play button setup
         JButton playButton = createImageButton("PLAY", "photos/WoodenMAIN.png", 250, 180, 240, 120, customFont1);
