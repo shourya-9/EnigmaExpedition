@@ -26,7 +26,7 @@ class Room5PanelTest {
     @Test
     void testDisplayQuestion() {
         // Assuming the first question is correctly displayed upon initialization
-        String expectedQuestion = "What is the capital of France?"; // Based on your Room1Panel's displayQuestion implementation
+        String expectedQuestion = "What is the most abundant element in the universe?"; // Based on your Room1Panel's displayQuestion implementation
         System.out.println(room5Panel.questions[0][0]);
         assertEquals(expectedQuestion, room5Panel.questions[0][0], "Question should be displayed");
     }
@@ -34,7 +34,7 @@ class Room5PanelTest {
     @Test
     void testCheckAnswerCorrect() {
         // Simulate answering the first question correctly
-        String correctAnswer = "C. Paris"; // Based on the provided Room1Panel questions array
+        String correctAnswer = "C. Hydrogen"; // Based on the provided Room1Panel questions array
         room5Panel.checkAnswer(correctAnswer);
         assertEquals(1, testPlayer.getQuestionsAnswered(), "Player should have 1 question answered correctly");
     }

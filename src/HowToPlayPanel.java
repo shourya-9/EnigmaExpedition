@@ -1,10 +1,10 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-
-import javax.swing.table.*;
 
 /**
  * The {@code HowToPlayPanel} class extends {@link JPanel} and provides a user interface
@@ -12,7 +12,9 @@ import javax.swing.table.*;
  * rules for how to play the game, and a "BACK" button to return to the main menu.
  */
 public class HowToPlayPanel extends JPanel {
-	/**
+    private Image background;
+
+    /**
      * Constructs a new {@code HowToPlayPanel} that displays the game's rules and a "BACK" button
      * to navigate back to the start frame or main menu. The panel is designed with a heading label
      * at the top and a rules label that contains the game instructions in a formatted HTML string
@@ -21,11 +23,9 @@ public class HowToPlayPanel extends JPanel {
      * @param startFrame The {@code Start} frame that this panel can return to. Can be {@code null}
      *                   if used outside the context of a {@code Start} frame for testing or standalone purposes.
      */
-	private Image background;
-	
-	public HowToPlayPanel(Start startFrame) {
+    public HowToPlayPanel(Start startFrame) {
         setLayout(new BorderLayout());
-        
+
         try {
             background = ImageIO.read(new File("photos/bg7.jpeg"));
         } catch (IOException e) {
@@ -41,10 +41,10 @@ public class HowToPlayPanel extends JPanel {
                 g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
             }
         };
-        
-        Font customFont = CustomFontLoader.getFont("photos/RichspookyBold.ttf",26f);
-        Font customFont1 = CustomFontLoader.getFont("photos/RichspookyBold.ttf",15f);
-        
+
+        Font customFont = CustomFontLoader.getFont("photos/RichspookyBold.ttf", 26f);
+        Font customFont1 = CustomFontLoader.getFont("photos/RichspookyBold.ttf", 15f);
+
         headerPanel.setOpaque(false);
         headerPanel.setPreferredSize(new Dimension(getWidth(), 60)); // Set the preferred height for the header
 
@@ -62,21 +62,14 @@ public class HowToPlayPanel extends JPanel {
         headerPanel.add(heading, BorderLayout.CENTER);
 
         JTextArea rules = new JTextArea(
-            "  1. \"Your goal is to escape from a series of rooms by correctly answering trivia    questions.\"\n\n" +
-            "  2. Each room presents a unique set of questions ranging from general knowledge,   literature, mathematics, to science.\n\n" +
-            "  3. Answer correctly to move forward or face the consequences of a wrong answer.\n\n" +
-            "  4. You have 3 lives a correct answer will allow you to progress, while a wrong answer will cost you a life.\n\n" +
-            "  5. You can save your game progress at any time. Simply select \\\"Save Game\\\" from the pause menu or press S on your keyboard. To continue where you left off, select \\\"Load Game\\\" from the main menu. \n\n" +
-            "  6. To adjust the volume, click pause to open the settings page and adjust the slider to suit your needs\n\n" +
-            "  7. To quit your current game session, simply go to settings and click on \\\"Exit\\\". or press E on your keyboard \n\n" +
-            "  8. Can you make it to the end and achieve the ultimate escape?\n"
+                // Game rules here
         );
         rules.setEditable(false);
         rules.setWrapStyleWord(true);
         rules.setLineWrap(true);
         rules.setOpaque(false);
         rules.setFont(customFont1); // Customized font for the rules
-        rules.setForeground(new Color(0xFFD5A77C, true)); // Dark brown color for the text
+        rules.setForeground(new Color(0x832424)); // Dark brown color for the text
 
         JScrollPane scrollPane = new JScrollPane(rules);
         scrollPane.setOpaque(false);
@@ -88,6 +81,15 @@ public class HowToPlayPanel extends JPanel {
         backButton.addActionListener(e -> {
             startFrame.showMainPanel(); // Switch back to the main panel
         });
+        Action goBackAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startFrame.showMainPanel(); // The operation you want to perform
+            }
+        };
+
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "goBack");
+        this.getActionMap().put("goBack", goBackAction);
     }
 
     @Override
@@ -96,7 +98,8 @@ public class HowToPlayPanel extends JPanel {
         // Draw the background image, scaled to fill the entire panel
         g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
     }
-	/**
+
+    /**
      * The entry point for a standalone test of the {@code HowToPlayPanel}. It initializes the panel
      * within a Swing application frame to preview its layout and functionality independently of the
      * main application. This method is useful for testing and design purposes.

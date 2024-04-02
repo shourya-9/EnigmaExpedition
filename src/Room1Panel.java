@@ -9,10 +9,17 @@ import javax.swing.border.Border;
 
 import com.opencsv.exceptions.CsvValidationException;
 
-import javax.swing.BorderFactory;
-
 import javax.swing.*;
-
+/**
+ * The {@code Room1Panel} class represents the first room or level in a quiz game.
+ * It extends {@link JPanel} and implements the {@link GameRoom} interface,
+ * providing a graphical interface for displaying questions, answers, and handling game logic.
+ * This class manages the gameplay mechanics, such as displaying questions, checking answers,
+ * handling lives, and managing timers for question deadlines.
+ *
+ * @see JPanel
+ * @see GameRoom
+ */
 public class Room1Panel extends JPanel implements GameRoom{
     private static JLabel livesLabel; // Label to display lives remaining
     private Image background;
@@ -29,13 +36,21 @@ public class Room1Panel extends JPanel implements GameRoom{
     private Player player1;
     private boolean timerInitialized = false;
     public String[][] questions = {
-            {"What is the capital of France?", "A. Berlin", "B. Madrid", "C. Paris", "D. Lisbon"},
-            {"What is 2 + 2?", "A. 3", "B. 4", "C. 22", "D. 5"},
-            {"Who wrote 'Hamlet'?", "A. Charles Dickens", "B. William Shakespeare", "C. Leo Tolstoy", "D. Mark Twain"},
-            {"What is the largest planet in our solar system?", "A. Earth", "B. Jupiter", "C. Mars", "D. Neptune"},
-            {"What is the chemical symbol for gold?", "A. Au", "B. Ag", "C. Fe", "D. O"}
+            {"What is the chemical symbol for water?", "A. O", "B. H202", "C. H20", "D. CO2"},
+            {"How many legs do arachnids have?", "A. 4", "B. 6", "C. 8", "D. 10"},
+            {"What planet is known as the Red Planet?", "A. Mars", "B. Jupiter", "C. Venus", "D.Saturn"},
+            {"Which gas is most abundant in the Earth's atmosphere?", "A. Oxygen", "B. Carbon Dioxide", "C. Nitrogen", "D. Hydrogen"},
+            {"What is the powerhouse of the cell?", "A. Nucleus", "B. Mitochondria", "C. Ribosome", "D. Endoplasmic reticulum"}
     };
-    public int[] answers = {3,2,2,2,1};
+    public int[] answers = {3,3,1,3,2};
+    /**
+     * Constructs a new {@code Room1Panel} instance for displaying and managing the first room of the game.
+     * It initializes the game UI components, loads the background, and sets up the initial game state.
+     *
+     * @param startFrame The start frame of the game.
+     * @param frame The main game frame.
+     * @param player The player instance.
+     */
     public Room1Panel(Start startFrame,JFrame frame, Player player) {
         this.startFrame = startFrame;
         this.frame = frame;
@@ -44,7 +59,10 @@ public class Room1Panel extends JPanel implements GameRoom{
         this.lives = player1.getLives();
         setupRoom();
     }
-
+    /**
+     * Sets up the room layout and initializes UI components such as labels for welcome message, timer, and lives.
+     * It also handles loading the background image and displaying the first question.
+     */
     private void setupRoom() {
         // Welcome label
         setLayout(new BorderLayout());
@@ -98,7 +116,9 @@ public class Room1Panel extends JPanel implements GameRoom{
 
 
     }
-
+    /**
+     * Customizes the UI components, such as fonts, colors, and borders.
+     */
     private void customizeComponents() {
         Font questionFont = new Font("Serif", Font.BOLD, 30);
         Font optionFont = new Font("Serif", Font.PLAIN, 26);
@@ -132,35 +152,77 @@ public class Room1Panel extends JPanel implements GameRoom{
         }
     }
 
-    // A method to create a rounded border if desired
+    /**
+     * The {@code RoundedBorder} class implements the {@link Border} interface
+     * to create a custom rounded border for components. It allows for the customization
+     * of the radius of the corners, providing a more aesthetically pleasing appearance
+     * for buttons or other components within the game's UI.
+     */
     private class RoundedBorder implements Border {
         private int radius;
-
+        /**
+         * Constructs a {@code RoundedBorder} with the specified corner radius.
+         *
+         * @param radius The radius of the corners of the border.
+         */
         RoundedBorder(int radius) {
             this.radius = radius;
         }
-
+        /**
+         * Returns the insets of the border.
+         *
+         * @param c The component for which this border insets value applies.
+         * @return An {@link Insets} object containing the border insets.
+         */
         public Insets getBorderInsets(Component c) {
             return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
         }
-
+        /**
+         * Indicates whether or not the border is opaque.
+         *
+         * @return {@code false} as this custom border does not fill all pixels (due to rounded corners).
+         */
         public boolean isBorderOpaque() {
             return false;
         }
-
+        /**
+         * Paints the border for the specified component with the specified position and size.
+         *
+         * @param c The component on which to paint the border.
+         * @param g The {@link Graphics} object used for painting.
+         * @param x The x position of the border.
+         * @param y The y position of the border.
+         * @param width The width of the border.
+         * @param height The height of the border.
+         */
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
             g.drawRoundRect(x, y, width-1, height-1, radius, radius);
         }
     }
 
-    @Override
+    /**
+     * Creates and returns a {@link JButton} that serves as the settings button.
+     * The button is customized with a settings icon, intended for opening the settings panel
+     * when clicked. The appearance of the button is adjusted to blend well with the game's theme,
+     * including removing the border and content area to emphasize the icon.
+     *
+     * @return The customized settings {@link JButton}.
+     */
+
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (background != null) {
             g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
         }
     }
-
+    /**
+     * Creates and returns a {@link JButton} that serves as the settings button.
+     * The button is customized with a settings icon, intended for opening the settings panel
+     * when clicked. The appearance of the button is adjusted to blend well with the game's theme,
+     * including removing the border and content area to emphasize the icon.
+     *
+     * @return The customized settings {@link JButton}.
+     */
     private JButton createSettingsButton() {
         ImageIcon originalIcon = new ImageIcon("photos/pause.png"); // Replace with your actual icon path
 
@@ -179,7 +241,11 @@ public class Room1Panel extends JPanel implements GameRoom{
 
         return settingsButton;
     }
-
+    /**
+     * Opens the settings panel by replacing the current content pane with a {@link GameSettingsPanel}.
+     * This method facilitates the transition to the game's settings view from the current room,
+     * allowing players to adjust settings such as sound or to pause the game.
+     */
     private void openSettingsPanel() {
         GameSettingsPanel settingsPanel = new GameSettingsPanel(startFrame,frame,this,player1);
         frame.setContentPane(settingsPanel);
@@ -187,7 +253,10 @@ public class Room1Panel extends JPanel implements GameRoom{
         frame.repaint();
     }
 
-
+    /**
+     * Displays the current question along with its answer options on the UI.
+     * export player data to csv files
+     */
     public void displayQuestion() {
         if (currentQuestionIndex >= questions.length) {
             ImageIcon icon = new ImageIcon("photos/tick.png");
@@ -241,13 +310,19 @@ public class Room1Panel extends JPanel implements GameRoom{
         frame.validate();
         frame.repaint();
     }
+    /**
+     * Handles the logic for pausing the game, such as stopping timers.
+     */
+
     public void pauseGame() {
         if (questionTimer != null) {
             questionTimer.stop(); // Stop the timer
             // Consider setting a flag if you need to differentiate between pausing and stopping for game logic
         }
     }
-
+/**
+ * proceeds to the next room 
+ */
     private void proceedToRoom2() {
         Room2Panel room2Panel = new Room2Panel(startFrame, frame, player1); // Initialize Room2Panel
         frame.setContentPane(room2Panel); // Set Room2Panel as the current content pane
@@ -255,7 +330,11 @@ public class Room1Panel extends JPanel implements GameRoom{
         frame.repaint();
     }
 
-
+    /**
+     * Checks whether the selected answer is correct, updates game state, and moves to the next question or handles game over.
+     *
+     * @param selectedAnswer The answer selected by the player.
+     */
     public void checkAnswer(String selectedAnswer) {
         if (selectedAnswer.equals(questions[currentQuestionIndex][answers[currentQuestionIndex]])) {
             currentQuestionIndex++;
@@ -284,14 +363,20 @@ public class Room1Panel extends JPanel implements GameRoom{
             }
         }
     }
+    /**
+     * Updates the display of lives on the UI.
+     *
+     * @param player1 The player instance to update lives for.
+     */
     public static void updateLivesDisplay(Player player1) {
         livesLabel.setText("Lives: " + lives + "  "); // Update the lives label
         player1.setLives(lives);
 
     }
 
-
-    // Room1Panel
+    /**
+     * Resets and starts the timer for the current question.
+     */
     private void resetAndStartTimer() {
         if (questionTimer != null) {
             questionTimer.stop(); // Stop the existing timer
@@ -301,7 +386,9 @@ public class Room1Panel extends JPanel implements GameRoom{
         timerInitialized = false; // Allow timer to be reinitialized
         startTimer(); // Start or resume the timer
     }
-
+    /**
+     * Starts or resumes the question timer.
+     */
     private void startTimer() {
         if (!timerInitialized) {
             questionTimer = new Timer(1000, e -> {
@@ -317,7 +404,11 @@ public class Room1Panel extends JPanel implements GameRoom{
             timerInitialized = true;
         }
     }
-
+    /**
+     * Handles the event when the time for a question runs out.
+     * Decreases the lives and goes to the next question or ends the game
+     * if the number of lives is lesser than 0
+     */
     private void onTimeOut() {
         lives--;
         updateLivesDisplay(player1);
@@ -333,7 +424,10 @@ public class Room1Panel extends JPanel implements GameRoom{
     public JFrame getFrame() {
         return frame;
     }
-
+    /**
+     * Handles the game over logic, such as stopping timers and showing a game over message.
+     * Exports player data to the score and complete csv files 
+     */
     private void gameOver() {
         // Stop the timer to avoid multiple pop-ups or actions
         System.out.println(player1.getQuestionsAnswered());

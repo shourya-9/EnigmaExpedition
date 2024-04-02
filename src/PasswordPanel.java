@@ -1,7 +1,14 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+/**
+ * The {@code PasswordPanel} class extends {@link JPanel} to create a UI panel for password entry.
+ * This panel is used to control access to certain parts of an application, such as an instructor dashboard.
+ * It includes a text field for password input, a confirm button to submit the password, and a back button
+ * for navigation.
+ */
 
 public class PasswordPanel extends JPanel {
     private JTextField nameField;
@@ -10,6 +17,14 @@ public class PasswordPanel extends JPanel {
     private JFrame frame;
     private Start startFrame;
     private Player player1;
+    /**
+     * Constructs a {@code PasswordPanel} with references to the main application frame, the start frame,
+     * and the main panel. Initializes UI components including the password input field and navigation buttons.
+     *
+     * @param startFrame The start frame of the application, used for navigation and displaying the main panel.
+     * @param frame The main application frame for updating the displayed panel.
+     * @param mainPanel The main panel of the application, used for navigating back from the password panel.
+     */
 
     public PasswordPanel(Start startFrame, JFrame frame, JPanel mainPanel) {
     	this.startFrame = new Start();
@@ -91,6 +106,12 @@ public class PasswordPanel extends JPanel {
         this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "goBack");
         this.getActionMap().put("goBack", goBackAction);
     }
+    /**
+     * Overrides the {@code paintComponent} method to draw a custom background image on the panel.
+     *
+     * @param g The {@link Graphics} object used for drawing operations.
+     */
+    @Override
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -98,6 +119,12 @@ public class PasswordPanel extends JPanel {
         Image backgroundImage = new ImageIcon("photos/bg6.jpeg").getImage();
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
+    /**
+     * Provides access to the static list of players. This method is currently not used within the context
+     * of the {@code PasswordPanel} but allows for future extensions where player data may be required.
+     *
+     * @return A static {@code ArrayList<Player>} containing the players.
+     */
 
     public static ArrayList<Player> getPlayers() {
         return players;

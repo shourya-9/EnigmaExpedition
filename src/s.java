@@ -1,7 +1,29 @@
 import javax.swing.*;
 import java.awt.*;
+/**
+ * The {@code s} class provides a simple GUI framework for the "Enigma Expedition: Path to Enlightenment" game.
+ * This class includes a method to create and display the main game window, including the title label and buttons
+ * for game navigation such as "Play", "Load", "How to Play", and "Feedback".
+ */
 
 public class s {
+	/**
+	 * Initializes and displays the GUI for the "Enigma Expedition: Path to Enlightenment" game.
+	 * 
+	 * This method sets up the main window frame, title label, button panel, and individual buttons
+	 * for the game's user interface. It defines the layout, size, color, and visibility of each
+	 * component and adds them to the frame.
+	 * 
+	 * The GUI includes:
+	 * - A title label with the game's name, set in a large, bold font and centered at the top.
+	 * - A main panel with a pink background that holds four buttons: "Play", "Load", "How to Play",
+	 *   and "Feedback", each with a yellow background and sized uniformly.
+	 * 
+	 * The frame is packed to fit the preferred size of its components and made visible to the user.
+	 * 
+	 * Note: This method should be invoked on the Event Dispatch Thread (EDT) to ensure thread safety
+	 * when updating the GUI components.
+	 */
     public static void createAndShowGUI(){
 
         JFrame frame = new JFrame("Enigma Expedition: Path to Enlightenment");
@@ -47,7 +69,14 @@ public class s {
 
 
     }
-
+    /**
+     * 
+     * The method uses `SwingUtilities.invokeLater` to ensure that the GUI creation is performed in
+     * the Event Dispatch Thread (EDT), which is the proper way to start a Swing application.
+     * 
+     * @param args Command-line arguments passed to the application (not used).
+     *
+     */
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {

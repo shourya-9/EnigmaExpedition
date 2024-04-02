@@ -5,10 +5,18 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.FontFormatException;
 
+/**
+ * Utility class for loading custom fonts in a Java Swing application.
+ */
 public class CustomFontLoader {
 
-    //private Font customFont = null;
-
+    /**
+     * Retrieves a custom font from the specified file path and sets its size.
+     * If the font fails to load, it falls back to a default font.
+     * @param path The file path to the custom font.
+     * @param size The size of the font to be retrieved.
+     * @return The custom font if loaded successfully, or a default font if loading fails.
+     */
     public static Font getFont(String path, float size) {
         Font customFont = null;
         if (customFont == null) {

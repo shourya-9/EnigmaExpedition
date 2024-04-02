@@ -1,9 +1,16 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+/**
+ * The {@code PasswordPanel2} class extends {@link JPanel} to create a UI panel that prompts the user
+ * for a password to access restricted parts of the application, such as a game modification panel.
+ * It includes a text field for the password, confirm and back buttons for navigation, and uses a custom
+ * font for text display.
+ */
 
 public class PasswordPanel2 extends JPanel {
     private JTextField nameField;
@@ -12,6 +19,14 @@ public class PasswordPanel2 extends JPanel {
     private JFrame frame;
     private Start startFrame;
     private Player player1;
+    /**
+     * Constructs a {@code PasswordPanel2} with specified parameters for navigation and layout setup.
+     * Initializes the panel with a text field for password input and buttons for user interaction.
+     *
+     * @param startFrame The start frame of the application for navigation purposes.
+     * @param frame The main application frame for updating the displayed panel.
+     * @param mainPanel The main panel of the application for returning from the password panel.
+     */
 
     public PasswordPanel2(Start startFrame, JFrame frame, JPanel mainPanel) {
     	this.startFrame = new Start();
@@ -84,6 +99,13 @@ public class PasswordPanel2 extends JPanel {
         });
 
         Action goBackAction = new AbstractAction() {
+        	/**
+             * Overrides the {@code paintComponent} method to draw a custom background image on the panel.
+             *
+             * @param g The {@link Graphics} object used for drawing operations.
+             */
+            
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 startFrame.showMainPanel(); // The operation you want to perform
@@ -100,6 +122,12 @@ public class PasswordPanel2 extends JPanel {
         Image backgroundImage = new ImageIcon("photos/bg6.jpeg").getImage();
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
+    /**
+     * Provides access to the static list of players. While not used within the context of password verification,
+     * this method allows for future extensions where player data might be required.
+     *
+     * @return A static {@code ArrayList<Player>} containing the players.
+     */
 
     public static ArrayList<Player> getPlayers() {
         return players;

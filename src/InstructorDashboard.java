@@ -12,11 +12,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * InstructorDashboard class represents the dashboard for instructors 
+ * to view game statistics including player scores, time taken, and game progress.
+ * This class extends JPanel to create a graphical user interface.
+ */
 public class InstructorDashboard extends JPanel {
 	private DefaultTableModel model;
 	private Image backgroundImage;
-	
+	/**
+     * Constructor for creating an instance of the InstructorDashboard.
+     * @param startFrame The instance of Start frame from where the dashboard is invoked.
+     */
 	public InstructorDashboard(Start startFrame) {
 		super(new BorderLayout());
 		// TODO Auto-generated constructor stub
@@ -104,7 +111,10 @@ public class InstructorDashboard extends JPanel {
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "goBack");
 		this.getActionMap().put("goBack", goBackAction);
 	}
-	
+	/**
+     * Loads data from CSV files and populates the table with the extracted data.
+     * @param csvFilePath The path to the CSV file containing complete game data.
+     */
 	private void loadCsvData(String csvFilePath) {
 		try (CSVReader reader = new CSVReader(new FileReader(csvFilePath))) {
 			CSVReader reader2 = new CSVReader(new FileReader("./incomplete.csv"));
@@ -179,6 +189,13 @@ public class InstructorDashboard extends JPanel {
 	        System.err.println("An error occurred while parsing scores: " + e.getMessage());
 	    }
 	}
+	/**
+	 * Formats the given time in seconds into a human-readable format (minutes and seconds).
+	 * If the given time is not a valid integer, returns "Invalid time".
+	 * @param timeInSeconds The time in seconds to be formatted.
+	 * @return A string representing the formatted time in "m s" format (e.g., "5 m 30 s").
+	 * If the input is not a valid integer, returns "Invalid time".
+	 */
 	private String formatTime(String timeInSeconds) {
 	    try {
 	        int seconds = Integer.parseInt(timeInSeconds);
@@ -187,7 +204,11 @@ public class InstructorDashboard extends JPanel {
 	        return "Invalid time";
 	    }
 	}
-	
+	/**
+	 * Overrides the default paintComponent method to draw a background image, if available.
+	 * This method is responsible for painting the background of the panel.
+	 * @param g The Graphics context used for painting.
+	 */
 	@Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -195,7 +216,11 @@ public class InstructorDashboard extends JPanel {
             g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
-
+	/**
+	 * The entry point of the application.
+	 * Initializes the InstructorDashboard and makes it visible on the screen.
+	 * @param args The command-line arguments passed to the application (not used in this case).
+	 */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new InstructorDashboard(null).setVisible(true));
     }

@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 import javax.swing.JFrame;
 
@@ -26,7 +27,7 @@ class Room2PanelTest {
     @Test
     void testDisplayQuestion() {
         // Assuming the first question is correctly displayed upon initialization
-        String expectedQuestion = "What is the capital of France?"; // Based on your Room1Panel's displayQuestion implementation
+        String expectedQuestion = "Which country has the largest population in the world?"; // Based on your Room1Panel's displayQuestion implementation
         System.out.println(room2Panel.questions[0][0]);
         assertEquals(expectedQuestion, room2Panel.questions[0][0], "Question should be displayed");
     }
@@ -34,7 +35,7 @@ class Room2PanelTest {
     @Test
     void testCheckAnswerCorrect() {
         // Simulate answering the first question correctly
-        String correctAnswer = "C. Paris"; // Based on the provided Room1Panel questions array
+        String correctAnswer = "A. India"; // Based on the provided Room1Panel questions array
         room2Panel.checkAnswer(correctAnswer);
         assertEquals(1, testPlayer.getQuestionsAnswered(), "Player should have 1 question answered correctly");
     }

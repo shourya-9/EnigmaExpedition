@@ -11,11 +11,19 @@ import java.util.List;
 import java.io.File;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-
+/**
+ * The LeaderboardPanel class represents a JPanel that displays a leaderboard with player scores and times.
+ * It loads data from a CSV file and presents it in a table format. It also includes a background image and a "BACK" button.
+ */
 public class LeaderboardPanel extends JPanel {
     private DefaultTableModel model;
     private Image backgroundImage;
-
+    /**
+     * Constructs a LeaderboardPanel with the specified Start frame and CSV file path.
+     *
+     * @param startFrame   The Start frame of the application.
+     * @param csvFilePath  The file path of the CSV file containing leaderboard data.
+     */
     public LeaderboardPanel(Start startFrame, String csvFilePath) {
         super(new BorderLayout());
         setSize(1317, 768);
@@ -109,7 +117,11 @@ public class LeaderboardPanel extends JPanel {
         this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "goBack");
         this.getActionMap().put("goBack", goBackAction);
     }
-    
+    /**
+     * Loads data from a CSV file into the leaderboard table.
+     *
+     * @param csvFilePath The file path of the CSV file containing leaderboard data.
+     */
 	private void loadCsvData(String csvFilePath) {
 	    try (CSVReader reader = new CSVReader(new FileReader(csvFilePath))) {
 	        List<String[]> allEntries = reader.readAll();
@@ -124,24 +136,15 @@ public class LeaderboardPanel extends JPanel {
 	            // Initialize scores
 	            int score1 = 0;
 	            int score2 = 0;
-	            //System.out.println(entry1.length);
+	           
 	            
 	            // Parse scores safely
 	            if (entry1[0].length() > 1) score1 = Integer.parseInt((entry1[0].split(","))[1]);
 	            if (entry2[0].length() > 1) score2 = Integer.parseInt((entry2[0].split(","))[1]);
-	            //System.out.println(score1);
-	            //System.out.println(score2);
 	            
-	            //System.out.println(Integer.compare(score2, score1));
 	            return Integer.compare(score2, score1);
 	        });
-	        /*for (String[] row : allEntries) { 
-	            for (String cell : row) { 
-	                System.out.print(cell + "\t"); 
-	            } 
-	            System.out.println(); 
-	        } 
-	     */
+	        
 
 	        // Clear the existing model before adding new data
 	        model.setRowCount(0);
@@ -165,6 +168,12 @@ public class LeaderboardPanel extends JPanel {
 	        System.err.println("An error occurred while parsing scores: " + e.getMessage());
 	    }
 	}
+	/**
+     * Formats time from seconds to "minutes : seconds" format.
+     *
+     * @param timeInSeconds The time in seconds to be formatted.
+     * @return The formatted time string.
+     */
 	private String formatTime(String timeInSeconds) {
 	    try {
 	        int seconds = Integer.parseInt(timeInSeconds);
@@ -174,14 +183,23 @@ public class LeaderboardPanel extends JPanel {
 	    }
 	}
 	
-	@Override
+	/**
+     * Overrides the paintComponent method to paint the background image.
+     *
+     * @param g The Graphics context used for painting.
+     */
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (backgroundImage != null) {
             g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
-
+    /**
+     * The main method to start the LeaderboardPanel as a standalone application.
+     *
+     * @param args The command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new LeaderboardPanel(null, "./score.csv").setVisible(true));
     }

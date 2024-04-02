@@ -7,11 +7,21 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * The loadGame class represents a JPanel used to load a player's game data from a CSV file.
+ * It searches for the specified player name in the CSV file and loads their game data if found.
+ * Depending on the room the player is in, it redirects to the corresponding room panel.
+ */
 public class loadGame extends JPanel {
 	private String playerData = null;
 	private Start startFrame;
 	private JFrame frame;
+	/**
+     * Constructs a loadGame panel with the specified player name and Start frame.
+     *
+     * @param playername The name of the player whose data is to be loaded.
+     * @param startFrame The Start frame of the game.
+     */
 	public loadGame(String playername,Start startFrame) {
 		
 	    try (CSVReader reader = new CSVReader(new FileReader("./incomplete.csv"))) {

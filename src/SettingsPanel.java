@@ -1,7 +1,13 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+/**
+ * The {@code SettingsPanel} class extends {@link JPanel} to provide a user interface for adjusting game settings.
+ * It includes controls for adjusting music and sound effects (SFX) volume, selecting cursor design, and navigating back
+ * to the main menu. The panel layout is manually managed for precise control positioning.
+ */
 
 public class SettingsPanel extends JPanel {
 
@@ -10,6 +16,12 @@ public class SettingsPanel extends JPanel {
     private JComboBox<String> cursorDesignDropdown;
     private JFrame mainFrame; // Reference to the main frame to switch back to the main panel
     private Image backgroundImage;
+    /**
+     * Constructs a {@code SettingsPanel} with references to the main application frame.
+     * Initializes UI components for the settings menu including sliders, labels, and a dropdown menu.
+     *
+     * @param mainFrame The main application frame to which the settings panel belongs.
+     */
 
     public SettingsPanel(JFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -77,12 +89,30 @@ public class SettingsPanel extends JPanel {
 
     }
 
+    /**
+     * Paints the panel component, including drawing the background image over the entire panel.
+     *
+     * @param g The {@link Graphics} object used for drawing operations.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         // Draw the background image
         g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
     }
+    /**
+     * Adds a labeled slider to the panel for settings like music and SFX volume. This utility method
+     * simplifies the addition of sliders with associated labels.
+     *
+     * @param slider The {@link JSlider} to add to the panel.
+     * @param label The text label for the slider.
+     * @param xPos X position of the label.
+     * @param yPos Y position of the label.
+     * @param x X position of the slider.
+     * @param y Y position of the slider.
+     * @param width Width of the slider.
+     * @param height Height of the slider.
+     */
 
     private void addLabeledSlider(JSlider slider, String label, int xPos, int yPos,int x, int y, int width, int height) {
         OutlineLabel sliderLabel = new OutlineLabel(label);
@@ -94,12 +124,22 @@ public class SettingsPanel extends JPanel {
         add(slider);
     }
 
+    /**
+     * Updates the cursor of the window based on the selection from a dropdown menu.
+     * This method retrieves the selected cursor design from a dropdown menu,
+     * obtains the corresponding Cursor object from the CursorManager, and sets
+     * the cursor for the entire window.
+     */
     private void updateCursor() {
         String selectedCursor = (String) cursorDesignDropdown.getSelectedItem();
         Cursor cursor = CursorManager.getInstance().getCursor(selectedCursor);
         SwingUtilities.getWindowAncestor(this).setCursor(cursor); // Set cursor for the whole window
     }
 
+    /**
+     * Navigates back to the main panel. This method is typically called in response to the user
+     * clicking the "Back" button.
+     */
 
     private void goBack() {
         // Navigate back to the main panel
